@@ -73,6 +73,13 @@ const appointments = [
 export default function Application(props) {
   const [day, setDay] = useState("Monday");
   
+  const appointmentsArr = appointments.map((appointment) => {
+    return <Appointment
+      key={appointment.id}
+      {...appointment}
+    />
+  });
+
   return (
     <main className="layout">
       <section className="sidebar">
@@ -97,14 +104,7 @@ export default function Application(props) {
         {/* Replace this with the sidebar elements during the "Project Setup & Familiarity" activity. */}
       </section>
       <section className="schedule">
-        {
-          appointments.map((appointment) => {
-            return <Appointment
-              key={appointment.id}
-              {...appointment}
-            />
-          })
-        }
+        {appointmentsArr}
         <Appointment key="last" time="5pm"/>
         {/* Replace this with the schedule elements durint the "The Scheduler" activity. */}
       </section>
