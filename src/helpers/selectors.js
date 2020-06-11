@@ -31,3 +31,20 @@ export function getInterview(state, interview) {
     }
   }
 }
+
+export function getInterviewersForDay(state, day) {
+  const { days, interviewers } = state;
+
+  let matchingDay = days.find((dayObj) => dayObj.name === day)
+  
+  let res = [];
+  if (typeof matchingDay === 'undefined') {
+    return res;
+  }
+  for (const key in interviewers) {
+    if(matchingDay.interviewers.includes(interviewers[key].id)) {
+      res.push(interviewers[key]);
+    }  
+  }
+  return res;
+}
