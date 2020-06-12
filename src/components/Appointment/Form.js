@@ -6,7 +6,6 @@ import InterviewerList from "components/InterviewerList";
 export default function Form(props) {
   const [name, setName] = React.useState(props.name || "")
   const [interviewer, setInterviewer] = React.useState(props.interviewer || null)
-
   const reset = () => {
     setName("");
     setInterviewer(null);

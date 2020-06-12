@@ -7,11 +7,11 @@ export default function Confirm({ message, onConfirm, onCancel }) {
       <h1 className="text--semi-bold">{message}</h1>
       <section className="appointment__actions">
         <Button
-          onClick={onCancel} 
+          onClick={() => onCancel()} 
           danger>Cancel
         </Button>
         <Button 
-          onClick={onConfirm}
+          onClick={() => onConfirm()}
           danger>Confirm
         </Button>
       </section>
