@@ -9,7 +9,7 @@ const useVisualMode = (initial) => {
       setMode(newMode);
     } else {
       setMode(newMode);
-      setHistory([...history, newMode]);
+      setHistory(prev => ([...prev, newMode]));
     }
   }
 
@@ -17,7 +17,7 @@ const useVisualMode = (initial) => {
     if (history.length > 1) {
       const prevHistory = history.slice(0, history.length -1);
 
-      setHistory(prevHistory);
+      setHistory([...prevHistory]);
       setMode(prevHistory[prevHistory.length - 1]);
     }
   }

@@ -15,7 +15,7 @@ export default function Application() {
     appointments: {},
     interviewers: {}
   });
-  
+
   const setDay = day => setState({ ...state, day });
 
   useEffect(() => {
@@ -54,9 +54,6 @@ export default function Application() {
       })
       console.log(state)
     })
-    .catch((error) => {
-      console.log(error);
-    });
   }
 
   function cancelInterview(id) {

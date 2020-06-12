@@ -11,7 +11,7 @@ export default function Error({ message, onClose }) {
         className="appointment__error-close"
         src="images/close.png"
         alt="Close"
-        onClick={onClose}
+        onClick={() => onClose()}
       />
     </main>
   );
