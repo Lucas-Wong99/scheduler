@@ -34,23 +34,23 @@ export default function Appointment(props) {
     transition(SAVING)
     return props.bookInterview(props.id ,interview)
       .then(() => {
-        transition(SHOW)
+        transition(SHOW);
       })
       .catch(() => {
-        transition(ERROR_SAVE, true)
+        transition(ERROR_SAVE, true);
       })
-  }
+  };
 
   function destroy(){
     transition(DELETING, true);
     return props.cancelInterview(props.id)
       .then(() => {
-        transition(EMPTY)
+        transition(EMPTY);
       })
       .catch(() => {
-        transition(ERROR_DELETE, true)
+        transition(ERROR_DELETE, true);
       })
-  }
+  };
 
   return (
     <article className="appointment">
