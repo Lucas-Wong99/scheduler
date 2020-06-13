@@ -2,6 +2,7 @@ import { useEffect, useReducer } from "react";
 import axios from "axios";
 
 const SET_DAY = "SET_DAY";
+const SET_DAYS = "SET_DAYS";
 const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 const SET_INTERVIEW = "SET_INTERVIEW";
 
@@ -9,6 +10,8 @@ const SET_INTERVIEW = "SET_INTERVIEW";
     switch (action.type) {
       case SET_DAY:
         return {...state, day: action.day}
+      case SET_DAYS:
+        return {...state, days: action.days}
       case SET_APPLICATION_DATA:
         return {
           ...state,
@@ -20,7 +23,7 @@ const SET_INTERVIEW = "SET_INTERVIEW";
         return {
           ...state,
           appointments: action.appointments,
-          days: action.days(action.id, state.days, action.interview)
+          // days: action.days(action.id, state.days, action.interview)
         }
       }
       default:
@@ -56,22 +59,29 @@ const useApplicationData = () => {
     })
   }, []);
 
-  function updateSpotsForDay(id, days, interview) {
-    return days.map((dayObj) => {
-      if(dayObj.appointments.includes(id)) {
-        const currentSpots = dayObj.spots
-        if (currentSpots === 0 && typeof interview !== "undefined") {
-          return dayObj
-        } else {
-          let spots = 0;
-          spots = (typeof interview !== "undefined"? dayObj.spots -= 1 : dayObj.spots += 1);
-          return { ...dayObj, spots }
-        }
-      } else {
-        return dayObj;
-      }
-    })
-  };
+  useEffect(() => {
+    axios.get("/api/days")
+    .then(res => {
+      dispatch({type: SET_DAYS, days: res.data})
+    }) 
+  })
+
+  // function updateSpotsForDay(id, days, interview) {
+  //   return days.map((dayObj) => {
+  //     if(dayObj.appointments.includes(id)) {
+  //       const currentSpots = dayObj.spots
+  //       if (currentSpots === 0 && typeof interview !== "undefined") {
+  //         return dayObj
+  //       } else {
+  //         let spots = 0;
+  //         spots = (typeof interview !== "undefined"? dayObj.spots -= 1 : dayObj.spots += 1);
+  //         return { ...dayObj, spots }
+  //       }
+  //     } else {
+  //       return dayObj;
+  //     }
+  //   })
+  // };
 
   function bookInterview(id, interview) {
     return axios.put(`/api/appointments/${id}`, {
@@ -89,9 +99,9 @@ const useApplicationData = () => {
       return dispatch({ 
         type: SET_INTERVIEW,
         appointments,
-        id,
-        days: updateSpotsForDay,
-        interview
+        // id,
+        // days: updateSpotsForDay,
+        // interview
       });     
     })
   }
@@ -110,8 +120,8 @@ const useApplicationData = () => {
       return dispatch({
         type: SET_INTERVIEW,
         appointments,
-        id,
-        days: updateSpotsForDay
+        // id,
+        // days: updateSpotsForDay
       });
     })
   }
