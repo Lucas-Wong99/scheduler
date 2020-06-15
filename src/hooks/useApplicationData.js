@@ -2,7 +2,6 @@ import { useEffect, useReducer } from "react";
 import axios from "axios";
 
 const SET_DAY = "SET_DAY";
-// const SET_DAYS = "SET_DAYS";
 const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 const SET_INTERVIEW = "SET_INTERVIEW";
 
@@ -10,8 +9,6 @@ const SET_INTERVIEW = "SET_INTERVIEW";
     switch (action.type) {
       case SET_DAY:
         return {...state, day: action.day}
-      // case SET_DAYS:
-      //   return {...state, days: action.days}
       case SET_APPLICATION_DATA:
         return {
           ...state,
@@ -41,7 +38,7 @@ const useApplicationData = () => {
     appointments: {},
     interviewers: {}
   })
-  console.log(state)
+  
   const setDay = day => dispatch({ type: SET_DAY, day });
 
   useEffect(() => { 
@@ -60,28 +57,48 @@ const useApplicationData = () => {
   }, []);
 
   // useEffect(() => {
-  //   axios.get("/api/days")
-  //   .then(res => {
-  //     dispatch({type: SET_DAYS, days: res.data})
-  //   }) 
-  // }, [state])
+  //   const webSocket = new WebSocket("ws://localhost:8001");
 
-  // function updateSpotsForDay(id, days, interview) {
-  //   return days.map((dayObj) => {
-  //     if(dayObj.appointments.includes(id)) {
-  //       const currentSpots = dayObj.spots
-  //       if (currentSpots === 0 && typeof interview !== "undefined") {
-  //         return dayObj
-  //       } else {
-  //         let spots = 0;
-  //         spots = (typeof interview !== "undefined"? dayObj.spots -= 1 : dayObj.spots += 1);
-  //         return { ...dayObj, spots }
-  //       }
+  //   webSocket.onopen = function(event) {
+  //     webSocket.send("ping")
+  //   }
+  //   webSocket.onmessage = function(event) {
+  //     const { type, id, interview } = JSON.parse(event.data)
+  //     let appointment;
+  //     let intUndef;
+  //     if (interview !== null) {
+  //       intUndef = interview
+  //       appointment = {
+  //         ...state.appointments[id],
+  //         interview: { ...interview }
+  //         };
   //     } else {
-  //       return dayObj;
+  //       intUndef = undefined
+  //       appointment = {
+  //         ...state.appointments[id],
+  //         interview: null
+  //         };
+        
   //     }
-  //   })
-  // };
+       
+  //     const appointments = {
+  //         ...state.appointments,
+  //         [id]: appointment
+  //     }
+  //     if (type === SET_INTERVIEW) {
+  //       dispatch({
+  //         type,
+  //         appointments,
+  //         id,
+  //         days: updateSpotsForDay,
+  //         interview: intUndef
+  //       })
+  //     }
+  //   }
+  //   // return () => {
+  //   //   webSocket.close();
+  //   // }
+  // }, [state.appointments]);
 
   function updateSpotsForDay(id, days, appointments, interview) {
     return days.map((dayObj) => {
@@ -103,8 +120,6 @@ const useApplicationData = () => {
       
     })
   }
-
-  // console.log(updateSpotsForDay(1, state.days, state.appointments, {interview: 0}))
 
   function bookInterview(id, interview) {
     return axios.put(`/api/appointments/${id}`, {
