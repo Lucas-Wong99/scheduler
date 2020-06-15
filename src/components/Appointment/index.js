@@ -60,7 +60,7 @@ export default function Appointment(props) {
       {mode === DELETING && <Status message={DELETING}/>}
       {mode === ERROR_SAVE && <Error onClose={back} message={ERROR_SAVE}/>}
       {mode === ERROR_DELETE && <Error onClose={back} message={ERROR_DELETE}/>}
-      {mode === SHOW && props.interview && (
+      {mode === SHOW && (
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
