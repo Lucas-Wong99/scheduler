@@ -17,6 +17,7 @@ const SET_INTERVIEW = "SET_INTERVIEW";
           interviewers: action.interviewers
         }
       case SET_INTERVIEW: {
+        console.log("DISPATCH ACTION", action.interview)
         return {
           ...state,
           appointments: action.appointments,
@@ -37,7 +38,7 @@ const useApplicationData = () => {
     days: [],
     appointments: {},
     interviewers: {}
-  })
+  });
   
   const setDay = day => dispatch({ type: SET_DAY, day });
 
@@ -57,49 +58,43 @@ const useApplicationData = () => {
   }, []);
 
   // useEffect(() => {
-  //   const webSocket = new WebSocket("ws://localhost:8001");
+  //   const ws = new WebSocket("ws://localhost:8001");
 
-  //   webSocket.onopen = function(event) {
-  //     webSocket.send("ping")
-  //   }
-  //   webSocket.onmessage = function(event) {
-  //     const { type, id, interview } = JSON.parse(event.data)
-  //     let appointment;
-  //     let intUndef;
-  //     if (interview !== null) {
-  //       intUndef = interview
-  //       appointment = {
-  //         ...state.appointments[id],
-  //         interview: { ...interview }
-  //         };
-  //     } else {
-  //       intUndef = undefined
-  //       appointment = {
-  //         ...state.appointments[id],
-  //         interview: null
-  //         };
-        
-  //     }
-       
+  //   ws.onmessage = function(event) {
+  //     const data = JSON.parse(event.data)
+
+  //     const appointment = {
+  //       ...state.appointments[data.id],
+  //       interview: { ...data.interview }
+  //     };
   //     const appointments = {
-  //         ...state.appointments,
-  //         [id]: appointment
-  //     }
-  //     if (type === SET_INTERVIEW) {
-  //       dispatch({
-  //         type,
+  //       ...state.appointments,
+  //       [data.id]: appointment
+  //     };
+  //     if (data.type === SET_INTERVIEW && data.interview !== null) {
+        
+  //       dispatch({ 
+  //         type: SET_INTERVIEW,
   //         appointments,
-  //         id,
+  //         id: data.id,
   //         days: updateSpotsForDay,
-  //         interview: intUndef
-  //       })
+  //         interview: data.interview
+  //       });
+  //     } else {
+  //       dispatch({ 
+  //         type: SET_INTERVIEW,
+  //         appointments,
+  //         id: data.id,
+  //         days: updateSpotsForDay
+  //       });
   //     }
   //   }
+    
   //   // return () => {
-  //   //   webSocket.close();
+  //   //   ws.close();
   //   // }
   // }, [state.appointments]);
-
+ 
   function updateSpotsForDay(id, days, appointments, interview) {
     return days.map((dayObj) => {
       //checks if there is already an interview value for a specific appointment id
@@ -117,7 +112,6 @@ const useApplicationData = () => {
       } else {
         return dayObj
       }
-      
     })
   }
 
@@ -140,7 +134,7 @@ const useApplicationData = () => {
         id,
         days: updateSpotsForDay,
         interview
-      });     
+      }); 
     })
   }
 
