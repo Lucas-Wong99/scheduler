@@ -88,7 +88,7 @@ const useApplicationData = () => {
       } else {
         return dayObj
       }
-    })
+    });
   }
 
   function bookInterview(id, interview) {
