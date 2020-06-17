@@ -168,7 +168,9 @@ describe("Application", () => {
   
     expect(getByText(appointment, "Are you sure you would like to delete?")).toBeInTheDocument();
 
-    expect(getByText(appointment, "Cancel")).toBeInTheDocument();
+    fireEvent.click(getByText(appointment, "Cancel"));
+
+    fireEvent.click(getByAltText(appointment, "Delete"));
 
     fireEvent.click(getByText(appointment, "Confirm"));
 
