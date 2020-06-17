@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import "./styles.scss";
 
 import Header from "./Header";
@@ -37,6 +37,7 @@ export default function Appointment(props) {
         transition(SHOW);
       })
       .catch(() => {
+        console.log("catching")
         transition(ERROR_SAVE, true);
       })
   };
@@ -52,17 +53,8 @@ export default function Appointment(props) {
       })
   };
 
-  useEffect(() => {
-    if (interview && mode === EMPTY) {
-     transition(SHOW);
-    }
-    if (interview === null && mode === SHOW) {
-     transition(EMPTY);
-    }
-   }, [interview, transition, mode]);
-
   return (
-    <article className="appointment">
+    <article className="appointment" data-testid="appointment">
       <Header time={props.time}/>
       {mode === EMPTY && <Empty onAdd={transition} />}
       {mode === SAVING && <Status message={SAVING}/>}

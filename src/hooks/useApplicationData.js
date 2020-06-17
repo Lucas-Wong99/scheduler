@@ -17,7 +17,6 @@ const SET_INTERVIEW = "SET_INTERVIEW";
           interviewers: action.interviewers
         }
       case SET_INTERVIEW: {
-        console.log("DISPATCH ACTION", action.interview)
         return {
           ...state,
           appointments: action.appointments,
