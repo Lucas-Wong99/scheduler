@@ -12,5 +12,6 @@
   command = "npm run build"
 
 [build.environment]
+  NODE_VERSION = 10
   REACT_APP_API_BASE_URL = "https://scheduler-api-lhl-2020.herokuapp.com/"
   REACT_APP_WEBSOCKET_URL = "wss://scheduler-api-lhl-2020.herokuapp.com/"
