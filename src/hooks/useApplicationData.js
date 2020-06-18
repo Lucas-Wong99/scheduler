@@ -1,6 +1,7 @@
 import { useEffect, useReducer } from "react";
 import axios from "axios";
 
+//importing in the reducer function that sets the state based on the action type
 import reducer, {
   SET_DAY,
   SET_APPLICATION_DATA,
@@ -18,6 +19,7 @@ const useApplicationData = () => {
   
   const setDay = day => dispatch({ type: SET_DAY, day });
 
+  //Sends a Get request to all three of these endpoints and calls dispatch to set state with the data
   useEffect(() => { 
     Promise.all([
       axios.get("/api/days"),
@@ -32,44 +34,6 @@ const useApplicationData = () => {
         interviewers: interviewers.data });
     })
   }, []);
-
-  // useEffect(() => {
-  //   const ws = new WebSocket("ws://localhost:8001");
-
-  //   ws.onmessage = function(event) {
-  //     const data = JSON.parse(event.data)
-
-  //     const appointment = {
-  //       ...state.appointments[data.id],
-  //       interview: { ...data.interview }
-  //     };
-  //     const appointments = {
-  //       ...state.appointments,
-  //       [data.id]: appointment
-  //     };
-  //     if (data.type === SET_INTERVIEW && data.interview !== null) {
-        
-  //       dispatch({ 
-  //         type: SET_INTERVIEW,
-  //         appointments,
-  //         id: data.id,
-  //         days: updateSpotsForDay,
-  //         interview: data.interview
-  //       });
-  //     } else {
-  //       dispatch({ 
-  //         type: SET_INTERVIEW,
-  //         appointments,
-  //         id: data.id,
-  //         days: updateSpotsForDay
-  //       });
-  //     }
-  //   }
-    
-  //   // return () => {
-  //   //   ws.close();
-  //   // }
-  // }, [state.appointments]);
  
   function updateSpotsForDay(id, days, appointments, interview) {
     return days.map((dayObj) => {
@@ -90,7 +54,7 @@ const useApplicationData = () => {
       }
     });
   }
-
+  //Submits a put request to this endpoint
   function bookInterview(id, interview) {
     return axios.put(`/api/appointments/${id}`, {
         interview
@@ -104,6 +68,7 @@ const useApplicationData = () => {
             ...state.appointments,
             [id]: appointment
           };
+      //On response we create a new appointments object with new interview data
       return dispatch({ 
         type: SET_INTERVIEW,
         appointments,
@@ -113,7 +78,7 @@ const useApplicationData = () => {
       }); 
     })
   }
-
+  //Submits a delete request
   function cancelInterview(id) {
     return axios.delete(`/api/appointments/${id}`)
     .then(() => {
@@ -125,6 +90,7 @@ const useApplicationData = () => {
         ...state.appointments,
         [id]: appointment
       }
+      //On reponse creates a new appointment object with a null interview
       return dispatch({
         type: SET_INTERVIEW,
         appointments,
