@@ -1,7 +1,7 @@
 export function getAppointmentsForDay(state, day) {
   const { days, appointments } = state;
 
-  let matchingDay = days.find((dayObj) => dayObj.name === day)
+  let matchingDay = days.find((dayObj) => dayObj.name === day);
   
   let res = [];
   if (typeof matchingDay === 'undefined') {
@@ -13,7 +13,7 @@ export function getAppointmentsForDay(state, day) {
     }  
   }
   return res;
-}
+};
 
 export function getInterview(state, interview) { 
   const { interviewers } = state;
@@ -30,7 +30,7 @@ export function getInterview(state, interview) {
       }
     }
   }
-}
+};
 
 export function getInterviewersForDay(state, day) {
   const { days, interviewers } = state;
@@ -47,4 +47,4 @@ export function getInterviewersForDay(state, day) {
     }  
   }
   return res;
-}
+};

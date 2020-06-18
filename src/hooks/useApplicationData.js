@@ -53,7 +53,7 @@ const useApplicationData = () => {
         return dayObj
       }
     });
-  }
+  };
   //Submits a put request to this endpoint
   function bookInterview(id, interview) {
     return axios.put(`/api/appointments/${id}`, {
@@ -76,8 +76,8 @@ const useApplicationData = () => {
         days: updateSpotsForDay,
         interview
       }); 
-    })
-  }
+    });
+  };
   //Submits a delete request
   function cancelInterview(id) {
     return axios.delete(`/api/appointments/${id}`)
@@ -97,10 +97,10 @@ const useApplicationData = () => {
         id,
         days: updateSpotsForDay
       });
-    })
-  }
+    });
+  };
   
   return { state, setDay, bookInterview, cancelInterview }
-}
+};
 
 export default useApplicationData;

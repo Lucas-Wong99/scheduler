@@ -31,4 +31,4 @@ export default function InterviewerList(props) {
       </ul>
     </section>
   );
-}
+};

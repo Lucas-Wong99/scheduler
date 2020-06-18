@@ -7,4 +7,4 @@ export default function Header({ time }) {
       <hr className="appointment__separator" />
     </header>
   );
-}
+};

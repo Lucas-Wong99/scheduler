@@ -15,4 +15,4 @@ export default function Error({ message, onClose }) {
       />
     </main>
   );
-}
+};
