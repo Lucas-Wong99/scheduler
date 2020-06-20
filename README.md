@@ -4,7 +4,7 @@
 
 ## Link 
 [Interview Scheduler](https://interviewscheduler-2020.netlify.app/)
-
+Link will take about 5 seconds or so to fully boot up application inculuding the deployed database on heroku
 
 ## ScreenShots 
 
